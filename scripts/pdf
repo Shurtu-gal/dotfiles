@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+if [[ $# -eq 1 ]]; then
+    if [ -d "$1" ]; then
+         selected=$(find $1 -mindepth 1 -maxdepth 2)
+         selected=$(echo "$selected" | fzf --multi --reverse --cycle)
+    else
+        selected=$1
+    fi
+else
+    selected=$(find $PWD -mindepth 1 -maxdepth 2)
+    selected=$(echo "$selected" | fzf --multi --reverse --cycle)
+fi
+
+if [[ -z $selected ]]; then
+    exit 0
+fi
+
+zathura "$selected" & disown;

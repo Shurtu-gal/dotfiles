@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# Get all microphone indices
+mic_indices=$(pamixer --list-sources | grep input | awk '{print $1}')
+
+# Check if any microphone is muted
+any_muted=false
+for index in $mic_indices; do
+    mic_muted=$(pamixer --source "$index" --get-mute)
+    if [ "$mic_muted" = "true" ]; then
+        any_muted=true
+        break
+    fi
+done
+
+# If any mic is muted, unmute all mics
+if [ "$any_muted" = "true" ]; then
+    for index in $mic_indices; do
+        pamixer --source "$index" -u
+    done
+else
+    # Otherwise, toggle each mic's state
+    for index in $mic_indices; do
+        mic_muted=$(pamixer --source "$index" --get-mute)
+        if [ "$mic_muted" = "true" ]; then
+            pamixer --source "$index" -u
+        else
+            pamixer --source "$index" -m
+        fi
+    done
+fi

@@ -1,0 +1,29 @@
+### neovim
+/.config/nvim/plugin/**
+
+## X
+!/.xinitrc
+!/.xprofile
+!/.config/gtk-3.0/bookmarks
+
+### CopyQ
+/.config/copyq/**
+!/.config/copyq/copyq.conf
+
+## Systemd
+/.config/systemd/user/**
+!/.config/systemd/user/playerctld.service
+
+## Fish
+fishd.*
+fish_history
+fish_variables
+config.local.fish
+
+## MPD
+/.config/mpd/**
+!/.config/mpd/mpd.conf
+!/.config/mpd/playlists/
+!/.config/mpd/playlists/**
+
+*log

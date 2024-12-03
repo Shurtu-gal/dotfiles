@@ -1,0 +1,16 @@
+mic_muted="false"  # Default value, assuming no mic is muted
+
+for index in $(pamixer --list-sources | grep input | awk '{print $1}'); do
+    current_mute=$(pamixer --source "$index" --get-mute)
+    
+    if [ "$current_mute" = "true" ]; then
+	mic_muted="true"
+    fi
+done
+
+if [ "$mic_muted" = "true" ]; then
+    echo "MIC off"
+else
+    echo "MIC on"
+fi
+

@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Check if /shared is mounted
+if mount | grep "/shared"; then
+    mkdir -p /shared/Games/Timberborn_Windows/Linux_Saves/
+    cp -rv /shared/Games/Timberborn_Linux/Saves/** /shared/Games/Timberborn_Windows/Linux_Saves/ >> /home/shurtu-gal/scripts/TimberBornBackup.log 2>&1
+else
+    echo "/shared is not mounted. Skipping backup." >> /home/shurtu-gal/scripts/TimberBornBackup.log
+fi
+

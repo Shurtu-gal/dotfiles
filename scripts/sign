@@ -1,0 +1,3 @@
+#!/bin/bash
+
+sudo sbctl verify | sed 's/✗ /sudo sbctl sign -s /e'
