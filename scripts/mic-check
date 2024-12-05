@@ -9,8 +9,8 @@ for index in $(pamixer --list-sources | grep input | awk '{print $1}'); do
 done
 
 if [ "$mic_muted" = "true" ]; then
-    echo "MIC off"
+    echo ""
 else
-    echo "MIC on"
+    echo ""
 fi
 

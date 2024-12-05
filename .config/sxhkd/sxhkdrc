@@ -1,18 +1,21 @@
-#
- wm independent hotkeys
-#
-
 # terminal emulator
 super + Return
 	alacritty
 
 # program launcher
 super + @space
+	rofi -show
+
+super + shift + @space
 	dmenu_run
 
 # make sxhkd reload its configuration files:
 super + Escape
 	pkill -USR1 -x sxhkd
+
+# Power management
+ctrl + super + alt + {s,p,r}
+	{systemctl suspend, shutdown now, reboot}
 
 #
 # bspwm hotkeys
@@ -151,3 +154,9 @@ Print
 
 super + {_, shift} + v
 	copyq {menu, toggle}
+
+XF86Calculator
+	rofi -show calc -modi calc -no-show-match -no-sort
+
+XF86Explorer
+	bspc rule -a Nemo -o state=floating; nemo

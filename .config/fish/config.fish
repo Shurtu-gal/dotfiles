@@ -102,6 +102,7 @@ end
 
 starship init fish | source
 
+set --export MANPATH /usr/share/man
 fish_add_path /home/shurtu-gal/scripts/
 
 set XDG_CONFIG_HOME $HOME/.config
@@ -114,7 +115,6 @@ set --export PATH $BUN_INSTALL/bin $PATH
 # npm
 set NPM_PACKAGES "$HOME/.npm-packages"
 fish_add_path $NPM_PACKAGES/bin
-set MANPATH $NPM_PACKAGES/share/man $MANPATH
 export NODE_OPTIONS='--disable-warning=ExperimentalWarning'
 
 # gtk
@@ -125,4 +125,4 @@ set GTK_THEME Adwaita:dark
 set SSH_AUTH_SOCK $XDG_RUNTIME_DIR/gcr/ssh
 export SSH_AUTH_SOCK=/run/user/1000/gcr/ssh
 
-set PATH $PATH /home/shurtu-gal/.local/bin
+fish_add_path /home/shurtu-gal/.local/bin
