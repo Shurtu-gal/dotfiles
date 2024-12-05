@@ -3,8 +3,11 @@ super + Return
 	alacritty
 
 # program launcher
-super + @space
-	rofi -show
+super + {@space, x, b, c}
+	rofi -show {drun, run, filebrowser, calc}
+
+alt + Tab
+	rofi -kb-accept-entry '!Alt-Tab' -kb-row-down Alt-Tab -show window
 
 super + shift + @space
 	dmenu_run
