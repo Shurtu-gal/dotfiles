@@ -144,6 +144,12 @@ XF86Audio{Next,Prev}
 XF86MonBrightness{Up,Down}
   brightnessctl set 10%{+,-}
 
+# Transparency control
+ctrl + alt + {plus,minus}
+	picom-trans {-c -o +3,-c -o -1}
+
+ctrl + alt + t
+	picom-trans -c -d
 
 # Miscellaneous 
 super + Print
