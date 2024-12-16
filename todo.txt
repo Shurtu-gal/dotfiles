@@ -1,10 +1,8 @@
 Learn bspwm and set it up
 Learn neovim and set it up
+Make Eww widgets and Image previewer with rofi
 
 Make Operating system and other cool stuff
 
 Keep working on the research project
 
-Setup alacritty and others
-
-Setup picom to control transparency

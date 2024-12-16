@@ -37,15 +37,23 @@ function webkill -d "Kill the process running on the given port"
   sudo kill -9 $(sudo lsof -t -i:$argv[1])
 end
 
-function go-install -d "Install Go with given version"
-  wget https://go.dev/dl/go$argv[1].linux-amd64.tar.gz
+function go-install -d "Install Go with given version (latest by default)"
+  if count $argv > /dev/null
+    export GOPKG=$argv[1]
+  else 
+    export GOPKG="$(curl -s https://api.github.com/repos/golang/go/git/matching-refs/tags/go | grep ref | grep -v url | grep -v beta | tail -1 | awk -F\/ {' print $3 '} | sed 's/",//')"
+  end
+  
+  echo "Installing $GOPKG..."
+
+  wget https://go.dev/dl/$GOPKG.linux-amd64.tar.gz
   # Remove /usr/local/bin
   if test -d /usr/local/go
     sudo rm -rf /usr/local/go;
   end
-  sudo tar -C /usr/local -xzf go$argv[1].linux-amd64.tar.gz
+  sudo tar -C /usr/local -xzf $GOPKG.linux-amd64.tar.gz
 
-  rm go$argv[1].linux-amd64.tar.gz
+  rm $GOPKG.linux-amd64.tar.gz
 end
 
 function prisma-install -d "Install Prisma 1. yarn | npm "
@@ -124,5 +132,9 @@ set GTK_THEME Adwaita:dark
 #ssh
 set SSH_AUTH_SOCK $XDG_RUNTIME_DIR/gcr/ssh
 export SSH_AUTH_SOCK=/run/user/1000/gcr/ssh
+
+#golang
+set --export GOINSTALL "/usr/local/go/bin/"
+set --export PATH $GOINSTALL $PATH
 
 fish_add_path /home/shurtu-gal/.local/bin

@@ -1,0 +1,36 @@
+
+#!/bin/bash
+
+dryrun=false
+
+if [[ "$2" == "--dry-run" ]]; then
+    dryrun=true
+fi
+
+if [[ -z "$1" ]]; then
+    echo "Usage: $0 [directory] [--dryrun]"
+    exit 1
+fi
+
+directory="$1"
+
+log_execute() {
+    local command="$1"
+    if $dryrun; then
+        echo "[DRY-RUN]: $command"
+    else
+        eval "$command"
+        echo "Executed: $command"
+    fi
+}
+
+find "$directory"| sort | while IFS= read -r file; do
+    if [[ "$file" =~ \  ]]; then
+        dir=$(dirname "$file" | sed 's/ /-/g')
+        base=$(basename "$file")
+        newfile=$(echo "$file" | sed 's/ /-/g')
+        path="$dir/$base"
+        log_execute "mv \"$path\" \"$newfile\""
+    fi
+done
+
