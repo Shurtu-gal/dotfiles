@@ -138,3 +138,10 @@ set --export GOINSTALL "/usr/local/go/bin/"
 set --export PATH $GOINSTALL $PATH
 
 fish_add_path /home/shurtu-gal/.local/bin
+
+# pnpm
+set -gx PNPM_HOME "/home/shurtu-gal/.local/share/pnpm"
+if not string match -q -- $PNPM_HOME $PATH
+  set -gx PATH "$PNPM_HOME" $PATH
+end
+# pnpm end
