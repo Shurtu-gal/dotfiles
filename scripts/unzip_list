@@ -1,0 +1,33 @@
+
+#!/bin/bash
+
+if [ "$#" -ne 1 ]; then
+    echo "Usage: $0 <target_directory>"
+    exit 1
+fi
+
+TARGET_DIR="$1"
+
+if [ ! -d "$TARGET_DIR" ]; then
+    mkdir -p "$TARGET_DIR"
+fi
+
+for zip_file in *.zip; do
+    if [ -f "$zip_file" ]; then
+        # Get the base name of the zip file (without the .zip extension)
+        base_name=$(basename "$zip_file" .zip)
+        
+        # Create a subdirectory named after the zip file inside the target directory
+        dest_dir="$TARGET_DIR/$base_name"
+        mkdir -p "$dest_dir"
+
+        echo "Unzipping $zip_file to $dest_dir..."
+        unzip -q "$zip_file" -d "$dest_dir"
+    else
+        echo "No zip files found in the current directory."
+        break
+    fi
+done
+
+echo "Unzipping complete!"
+

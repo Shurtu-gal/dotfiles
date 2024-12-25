@@ -9,7 +9,7 @@ for dir in */; do
 
         echo "#EXTM3U" > "$playlist_file"
 
-        for video_file in "$dir"/*.mkv; do
+        for video_file in "$dir"/*.mkv "$dir"/*.mp4; do
             if [ -e "$video_file" ]; then
                 video_name=$(basename "$video_file")
                 echo "$BASE_DIR/$dir_name/$video_name" >> "$playlist_file"
