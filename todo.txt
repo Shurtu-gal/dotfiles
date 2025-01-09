@@ -7,10 +7,4 @@ Make Operating system and other cool stuff
 Keep working on the research project
 
 
-# Research
-Dense angle encoding measurements
-Angle encoding overlap with examples
-Feature spaces
-
-Amplitude encoding decomposition
 
