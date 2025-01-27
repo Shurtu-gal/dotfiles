@@ -123,7 +123,7 @@ set --export PATH $BUN_INSTALL/bin $PATH
 # npm
 set NPM_PACKAGES "$HOME/.npm-packages"
 fish_add_path $NPM_PACKAGES/bin
-export NODE_OPTIONS='--disable-warning=ExperimentalWarning'
+# export NODE_OPTIONS='--disable-warning=ExperimentalWarning'
 
 # gtk
 set GTK2_RC_FILES /usr/share/themes/Adwaita-dark/gtk-2.0/gtkrc
@@ -145,3 +145,17 @@ if not string match -q -- $PNPM_HOME $PATH
   set -gx PATH "$PNPM_HOME" $PATH
 end
 # pnpm end
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+if test -f /home/shurtu-gal/miniconda3/bin/conda
+    eval /home/shurtu-gal/miniconda3/bin/conda "shell.fish" "hook" $argv | source
+else
+    if test -f "/home/shurtu-gal/miniconda3/etc/fish/conf.d/conda.fish"
+        . "/home/shurtu-gal/miniconda3/etc/fish/conf.d/conda.fish"
+    else
+        set -x PATH "/home/shurtu-gal/miniconda3/bin" $PATH
+    end
+end
+# <<< conda initialize <<<
+
