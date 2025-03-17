@@ -1,8 +1,12 @@
 set fish_greeting ""
 
-alias clock="tty-clock -c -r"
+alias clock='tty-clock -sSc -f "%A, %B %d"'
 alias ls="exa -l"
 alias la="exa -la"
+
+function cursor
+  nohup /opt/cursor/cursor.AppImage --no-sandbox $argv &; disown;
+end
 
 export DOCKER_HOST=$(docker context inspect --format '{{.Endpoints.docker.Host}}')
 
@@ -91,21 +95,14 @@ function update -d "Update the packages"
     sudo pacman -S
 end
 
-function project
-  cd ~/Projects/
-  for name in $argv
-    code $name
-  end
-end
-
 set -u ANDROID_HOME ~/Projects/appDev/installs/android
 set -u JAVA_HOME ~/Projects/appDev/installs/jdk-17
 
 if status is-interactive
     clear 
-    pfetch
-    #curl -L git.io/unix
-    echo Hello Ashish  
+    # pfetch
+    # #curl -L git.io/unix
+    # echo Hello Ashish  
 end
 
 starship init fish | source
@@ -148,14 +145,14 @@ end
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-if test -f /home/shurtu-gal/miniconda3/bin/conda
-    eval /home/shurtu-gal/miniconda3/bin/conda "shell.fish" "hook" $argv | source
-else
-    if test -f "/home/shurtu-gal/miniconda3/etc/fish/conf.d/conda.fish"
-        . "/home/shurtu-gal/miniconda3/etc/fish/conf.d/conda.fish"
-    else
-        set -x PATH "/home/shurtu-gal/miniconda3/bin" $PATH
-    end
-end
+# if test -f /home/shurtu-gal/miniconda3/bin/conda
+#     eval /home/shurtu-gal/miniconda3/bin/conda "shell.fish" "hook" $argv | source
+# else
+#     if test -f "/home/shurtu-gal/miniconda3/etc/fish/conf.d/conda.fish"
+#         . "/home/shurtu-gal/miniconda3/etc/fish/conf.d/conda.fish"
+#     else
+#         set -x PATH "/home/shurtu-gal/miniconda3/bin" $PATH
+#     end
+# end
 # <<< conda initialize <<<
 

@@ -87,8 +87,8 @@ super + {o,i}
 	bspc wm -h on
 
 # focus or send to the given desktop
-super + {_,shift + }{1-9,0}
-	bspc {desktop -f,node -d} '^{1-9,10}'
+super + {_,shift + }{1-8}
+	bspc {desktop -f,node -d} '^{1-8}'
 
 #
 # preselect
@@ -145,7 +145,10 @@ XF86Audio{Next,Prev}
 
 # Brightness control
 XF86MonBrightness{Up,Down}
-  brightnessctl set 10%{+,-}
+	brightnessctl set 10%{+,-}
+
+super + {0,9}
+	ddcutil setvcp 10 {+,-} 10
 
 # Transparency control
 ctrl + alt + {plus,minus}

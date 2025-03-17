@@ -1,0 +1,98 @@
+#!/bin/bash
+
+# NAME:         manga-reader  
+# DESCRIPTION:  Invoke one PDF file (manga chapter) at a time, remembering progress.
+# DEPENDENCIES: mupdf (default) or zathura (optional)
+# LICENSE:      GNU GPLv3 (http://www.gnu.de/documents/gpl-3.0.en.html)        
+
+############# Functions ###############
+
+gui_notify(){
+  if [[ "$enable_notify" == true ]]; then
+    notify-send -i application-pdf "Manga Reader" "$1"
+    echo "$1"
+  fi
+}
+
+arg_compose_file_array(){
+    # recursively add pdf files and folders in given arguments to array
+    unset files
+    file_count_current=1
+    while IFS= read -r -d $'\0' file; do
+        if [[ ! "$(file -ib "$file")" == *application/pdf* ]]
+          then
+              echo "Error: '$file' is not a pdf file. Ignoring."
+              continue
+        fi
+        files[file_count_current++]="$file"
+    done < <(find "$@" -type f -name 'Ch *.pdf' -print0 | sort -z --version-sort)
+    file_count_total="${#files[@]}"
+}
+
+arg_check(){
+  if [[ "$file_count_total" = "0" ]]; then
+    gui_notify "ERROR: No PDF files found."
+    echo "Exiting..."
+    exit 1
+  fi
+}
+
+############## Checks #################
+
+# Default chapter start to 1, override with progress.txt if exists
+chapter_start=1
+progress_file="progress.txt"
+ignore_progress=false
+pdf_viewer="mupdf"
+enable_notify=false
+
+# Parse arguments
+for arg in "$@"; do
+  if [[ "$arg" == "--ignore-progress" ]]; then
+    ignore_progress=true
+    shift
+  elif [[ "$arg" == "--use-zathura" ]]; then
+    pdf_viewer="zathura"
+    shift
+  elif [[ "$arg" == "--enable-notify" ]]; then
+    enable_notify=true
+    shift
+  elif [[ "$arg" =~ ^Ch[[:space:]]*([0-9]+)\.pdf$ ]]; then
+    chapter_start=$((10#${BASH_REMATCH[1]}))  # Remove leading zeros
+    shift
+  fi
+done
+
+if [[ -f "$progress_file" && "$ignore_progress" == false ]]; then
+  chapter_start=$((10#$(cat "$progress_file")))  # Remove leading zeros
+fi
+
+gui_notify "Starting from Chapter $chapter_start"
+
+arg_compose_file_array "$@"
+arg_check
+
+################ Main #################
+
+file_count_current=1
+for file in "${files[@]}"; do
+  chapter_number=$(basename "$file" | grep -oE '[0-9]+')
+  chapter_number=$((10#$chapter_number))  # Remove leading zeros
+  
+  if (( chapter_number < chapter_start )); then
+    ((file_count_current++))
+    continue
+  fi
+  
+  echo "Opening file $file_count_current of $file_count_total:"
+  echo "$file"
+  echo "$chapter_number" > "$progress_file"
+  "$pdf_viewer" "$file" > /dev/null 2>&1
+  ((file_count_current++))
+  
+  gui_notify "Progress saved: Chapter $chapter_number"
+
+done
+
+echo "Done."
+

@@ -8,3 +8,4 @@ dbus-update-activation-environment --all
 
 # Desktop Manager Stuff
 exec bspwm
+# exec i3

@@ -9,15 +9,30 @@ pgrep -x picom > /dev/null || picom &
 ~/.config/polybar/launch.sh &
 ~/.fehbg &
 
-bspc monitor -d I II III IV V VI VII VIII IX X
+if [[ $(xrandr -q | grep 'HDMI1 connected') ]]; then
+    xrandr --output HDMI1 --left-of eDP1 --primary --refresh 165 --mode 2560x1440
+    sleep 1
+    bspc wm -O HDMI1 eDP1
+    bspc monitor HDMI1 -d I II III IV V
+    bspc monitor eDP1 -d VI VII VIII
+else 
+    xrandr --output HDMI1 --off
+    # Remove nodes
+    for desktop in I II III IV V; do
+        while bspc node @"$desktop": --kill; do :; done
+    done
+    bspc monitor eDP1 -d I II III IV V VI VII VIII
+    # Remove monitor
+    bspc monitor HDMI1 -r
+fi
 
 bspc config border_width         2
 bspc config window_gap          12
-
+bspc config focus_follows_pointer true
 bspc config split_ratio          0.52
 bspc config borderless_monocle   true
 bspc config gapless_monocle      true
 
 bspc rule -a firefox desktop='^1'
-bspc rule -a Spotify desktop='^10'
+bspc rule -a Spotify desktop='^8'
 bspc rule -a mplayer2 state=floating

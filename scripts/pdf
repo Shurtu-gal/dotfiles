@@ -16,4 +16,4 @@ if [[ -z $selected ]]; then
     exit 0
 fi
 
-zathura "$selected" & disown;
+zathura --fork "$selected";

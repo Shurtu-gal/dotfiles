@@ -1,0 +1,7 @@
+#!/usr/bin/fish
+
+set node_options
+nvm use v21.0.0
+
+code ~/work/apideck/apideck.code-workspace
+exec kill -9 (ps -o ppid= -p (ps -o ppid= -p $fish_pid | tr -d ' ') | tr -d ' ')

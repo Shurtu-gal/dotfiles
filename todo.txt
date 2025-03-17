@@ -6,5 +6,12 @@ Make Operating system and other cool stuff
 
 Keep working on the research project
 
+- Books content
+- Patent
+- Read chapter 
+- QPMEL in ESV
 
-
+- Experiments on interpretability
+- Aberration
+- LGBFS Optimizer
+- Mathematics behind Q-KAN
