@@ -1,4 +1,7 @@
 #! /bin/sh
+bspc rule -a Spotify desktop='^8'
+bspc rule -a Microsoft-edge desktop='^1'
+bspc rule -a mplayer2 state=floating
 
 #Auto Start Stuff
 pgrep -x sxhkd > /dev/null || sxhkd &
@@ -32,6 +35,3 @@ bspc config focus_follows_pointer true
 bspc config split_ratio          0.52
 bspc config borderless_monocle   true
 bspc config gapless_monocle      true
-
-bspc rule -a Spotify desktop='^8'
-bspc rule -a mplayer2 state=floating

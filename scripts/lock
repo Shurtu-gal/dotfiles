@@ -1,3 +1,5 @@
 #!/bin/bash
 
-i3lock -i ~/Pictures/WALLPAPERS/lock.png
+# i3lock -t -i ~/Pictures/WALLPAPERS/lock.png
+# i3lockmore -t  --image-fill ~/Pictures/WALLPAPERS/lock.png
+i3lockmore -t  --image-fill ~/Pictures/WALLPAPERS/castle.jpg

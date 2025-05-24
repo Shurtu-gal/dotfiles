@@ -4,14 +4,11 @@ Make Eww widgets and Image previewer with rofi
 
 Make Operating system and other cool stuff
 
-Keep working on the research project
+- Sakurai Book
+- Three.js
+- crafting
+- little-os
 
-- Books content
-- Patent
-- Read chapter 
-- QPMEL in ESV
-
-- Experiments on interpretability
-- Aberration
-- LGBFS Optimizer
-- Mathematics behind Q-KAN
+Watch List
+- Arcane
+- Mindhunter
