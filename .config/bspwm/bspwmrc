@@ -1,11 +1,12 @@
 #! /bin/sh
-bspc rule -a Spotify desktop='^8'
+bspc rule -a Spotify desktop='^6'
 bspc rule -a Microsoft-edge desktop='^1'
 bspc rule -a mplayer2 state=floating
 
 #Auto Start Stuff
-pgrep -x sxhkd > /dev/null || sxhkd &
 pgrep -x spotify > /dev/null || spotify &
+pgrep -x msedge > /dev/null || microsoft-edge-stable &
+pgrep -x sxhkd > /dev/null || sxhkd &
 pgrep -x slack > /dev/null || slack &
 pgrep -x copyq > /dev/null || copyq &
 pgrep -x picom > /dev/null || picom &
@@ -13,11 +14,16 @@ pgrep -x picom > /dev/null || picom &
 ~/.fehbg &
 
 if [[ $(xrandr -q | grep 'HDMI1 connected') ]]; then
-    xrandr --output HDMI1 --left-of eDP1 --primary --refresh 165 --mode 2560x1440
+    xrandr --output HDMI1 --primary --refresh 165 --mode 2560x1440 --output --eDP1 --off
     sleep 1
-    bspc wm -O HDMI1 eDP1
-    bspc monitor HDMI1 -d I II III IV V
-    bspc monitor eDP1 -d VI VII VIII
+    bspc wm -O HDMI1
+    bspc monitor HDMI1 -d I II III IV V VI
+    # bspc monitor eDP1 -d VI VII VIII
+    # xrandr --output HDMI1 --left-of eDP1 --primary --refresh 165 --mode 2560x1440
+    # sleep 1
+    # bspc wm -O HDMI1 eDP1
+    # bspc monitor HDMI1 -d I II III IV V
+    # bspc monitor eDP1 -d VI VII VIII
 else 
     xrandr --output HDMI1 --off
     # Remove nodes

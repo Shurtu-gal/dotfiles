@@ -1,9 +1,10 @@
 #!/bin/bash
 
 # Default installation directory and app name
-INSTALL_DIR="/opt/cursor/"
+INSTALL_DIR="/opt/cursor"
 APP_NAME="Cursor"
 APP_URL="https://downloader.cursor.sh/linux/appImage/x64"
+APP_URL="https://downloads.cursor.com/production/53b99ce608cba35127ae3a050c1738a959750865/linux/x64/Cursor-1.0.0-x86_64.AppImage"
 USER_AGENT="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
 
 # Function to display error messages
