@@ -10,6 +10,7 @@ pgrep -x sxhkd > /dev/null || sxhkd &
 pgrep -x slack > /dev/null || slack &
 pgrep -x copyq > /dev/null || copyq &
 pgrep -x picom > /dev/null || picom &
+pgrep -x dunst > /dev/null || dunst &
 ~/.config/polybar/launch.sh &
 ~/.fehbg &
 
